@@ -24,6 +24,7 @@ for level in os.listdir('input'):
         ig2lvl=json.load(open('input/'+level))
         blocks=ig2lvl[2][0][3][1]
         spikes=ig2lvl[2][0][3][2]
+        collectables=ig2lvl[2][0][3][11]
         print('adding '+str(len(blocks))+' blocks...')
         for block in blocks:
             width=block[0]
@@ -35,6 +36,11 @@ for level in os.listdir('input'):
             height=spike[1]+1005
             angle=spike[2]*90
             output.write('1,8,2,'+str(width)+',3,'+str(height)+',6,'+str(angle)+';')
+        print('adding '+str(len(collectables))+' collectables...')
+        for collectable in collectables:
+            width=collectable[0]
+            height=collectable[1]+1005
+            output.write('1,1614,2,'+str(width)+',3,'+str(height)+',36,1,51,0;')
 
     elif level.endswith('.dat'): #impossible game 1
         with open('input/'+level,'rb') as l:
