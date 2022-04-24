@@ -13,6 +13,7 @@ levelplaceholder='kS38,1_40_2_125_3_255_11_255_12_255_13_255_4_-1_6_1000_7_1_15_
 
 #teleport objects because the impossible game 2 uses blocks for the ground
 teleport='1,747,2,15,3,15,32,0.5,54,1105;'
+cameraposition='0;1,1913,2,-29,3,45,36,1,109,4,10,0;1,1916,2,-29,3,75,36,1,28,-150,29,75,10,0,30,0,85,2;'
 
 for level in os.listdir('input'):
     filename=level.split('.')[0]
@@ -20,10 +21,14 @@ for level in os.listdir('input'):
     output=open('output/'+filename+'.plist','w')
     output.write(levelplaceholder)
     if level.endswith('.json'): #impossible game 2
-        output.write(teleport)
         ig2lvl=json.load(open('input/'+level))
         blocks=ig2lvl[2][0][3][1]
         spikes=ig2lvl[2][0][3][2]
+        platforms=ig2lvl[2][0][3][3]
+        rev_triggers=ig2lvl[2][0][3][4]
+        saws=ig2lvl[2][0][3][5]
+        checkpoints=ig2lvl[2][0][3][6]
+        enemies=ig2lvl[2][0][3][8]
         collectables=ig2lvl[2][0][3][11]
         print('adding '+str(len(blocks))+' blocks...')
         for block in blocks:
@@ -36,11 +41,18 @@ for level in os.listdir('input'):
             height=spike[1]+1005
             angle=spike[2]*90
             output.write('1,8,2,'+str(width)+',3,'+str(height)+',6,'+str(angle)+';')
+        print('adding '+str(len(rev_triggers))+' reverse triggers...')
+        for rev_trigger in rev_triggers:
+            width=rev_trigger[0]
+            height=rev_trigger[1]+1005
+            #output.write('1,50,2,'+str(width)+',3,'+str(height)+';') #finding a object id for reverse trigger...
+            output.write('1,1614,2,'+str(width)+',3,'+str(height)+'32,2,13,1,11,1,36,1;1,10,2,'+str(width)+',3,'+str(height)+',36,1;')
         print('adding '+str(len(collectables))+' collectables...')
         for collectable in collectables:
             width=collectable[0]
             height=collectable[1]+1005
             output.write('1,1614,2,'+str(width)+',3,'+str(height)+',36,1,51,0;')
+        output.write(teleport+cameraposition)
 
     elif level.endswith('.dat'): #impossible game 1
         with open('input/'+level,'rb') as l:
