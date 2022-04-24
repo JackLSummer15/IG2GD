@@ -34,7 +34,11 @@ for level in os.listdir('input'):
         for block in blocks:
             width=block[0]
             height=block[1]+1005
-            output.write('1,1,2,'+str(width)+',3,'+str(height)+';')
+            try:
+                if block[2]==1: #smaller blocks
+                    output.write('1,1,2,'+str(width)+',3,'+str(height)+',32,0.5;')
+            except:
+                output.write('1,1,2,'+str(width)+',3,'+str(height)+';')
         print('adding '+str(len(spikes))+' spikes...')
         for spike in spikes:
             width=spike[0]
