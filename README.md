@@ -18,3 +18,4 @@ Enjoy ;)
 # Credits
 - Tool made by: JackLSummer15
 - GD Save Explorer by: GD Colon
+- 2.2 triggers (zoom, timewarp, offset) by: m1nt
