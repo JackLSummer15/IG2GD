@@ -106,7 +106,7 @@ for level in os.listdir('input'):
                 objectid=struct.pack('>c',l.read(1))[0]
                 l.read(1)
                 l.read(1)
-                width=struct.unpack('>h',l.read(2))[0]#+330
+                width=struct.unpack('>h',l.read(2))[0] -90 #+330
                 l.read(1)
                 l.read(1)
                 height=struct.unpack('>h',l.read(2))[0]+15
@@ -115,6 +115,7 @@ for level in os.listdir('input'):
                 elif objectid==0: #block
                     output.write('1,1,2,'+str(width)+',3,'+str(height)+';')
                 elif objectid==2: #pit
+                    height=height-90
                     for pitwidth in range(width,height,30):
                         output.write('1,1715,2,'+str(pitwidth)+',3,2.5;')
             l.read(2)
